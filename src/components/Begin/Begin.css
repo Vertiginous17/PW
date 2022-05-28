@@ -1,0 +1,10 @@
+.paragraph{
+    font-size: 28;
+    color: black;
+    padding-left: 14px;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+}

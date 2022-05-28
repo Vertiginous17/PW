@@ -1,0 +1,68 @@
+.div {
+    width: 100%;
+    max-width: 80%;
+    background: #fff;
+    padding: 44px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    border-radius: 4px;
+}
+
+img {
+    width: 100%;
+}
+
+h5 {
+    color: #ed563b;
+    margin: 26px 0 9px 0;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+h3 {
+    color: #232d39;
+    letter-spacing: 1px;
+}
+
+p {
+    margin: 24px 0 28px 0;
+    color: #7a7a7a;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+@media (max-width: 830px) {
+    .container {
+        max-width: 540px;
+        margin: 14px 0;
+    }
+}
+
+@media (min-width: 831px) and (max-width: 1226px) {
+    .container {
+        max-width: 47%;
+        margin: 14px 0;
+    }
+}
+
+.buttonTrainer {
+    display: inline-block;
+    padding: 0.7em 1.4em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.15em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #FFFFFF;
+    background-color: #3369ff;
+    box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.17);
+    text-align: center;
+    position: relative;
+}
+
+.buttonTrainer:active{
+    background-color:#668fff
+}

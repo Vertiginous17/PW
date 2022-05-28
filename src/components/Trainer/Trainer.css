@@ -1,0 +1,28 @@
+.trainContainerTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.trainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    color: #232d39;
+    font-weight: 900;
+    font-size: 36px;
+    letter-spacing: 1.3px;
+    line-height: 1;
+    color: #ed563b;
+}
+
+p {
+    
+    color: black;
+    font-size: 16px;
+    line-height: 1.7;
+}

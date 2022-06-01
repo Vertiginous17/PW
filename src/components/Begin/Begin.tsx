@@ -26,7 +26,7 @@ const Begin = () => {
     return (
         <div className='box'> 
             <Navbar/>
-            <p>Welcome again</p>
+            <p>Welcome to our Softly's page</p>
 
             <ul>
                 {isFetching && <p>Carregando...</p>}

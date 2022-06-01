@@ -7,22 +7,21 @@ type Repository = {
 }
 
 type User = {
-  first_name: string;
+  username: string;
+  password: string;
 }
 
 const Repositories = () => {
-  const { data: repositories, error, isFetching } =
-    useFetch<Repository[]>('https://api.github.com/users/vertiginous17/repos')
+  const { data: user, error, isFetching } =
+    useFetch<User[]>('http://127.0.0.1:8000/auth')
 
   return (
     <ul>
       {isFetching && <p>Carregando...</p>}
-      {repositories?.map(repo => {
+      {user?.map(repo => {
         return (
-          <li key={repo.full_name}>
-            <strong>{repo.full_name}</strong>
-            <p>Smthi to say</p>
-            <p>{repo.description}</p>
+          <li key={repo.username}>
+            <strong>{repo.password}</strong>
           </li>
         )
       })}

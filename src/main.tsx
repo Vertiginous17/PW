@@ -10,21 +10,13 @@ import Begin from './components/Begin/Begin';
 import Homepage from './components/Homepage/Homepage';
 import Trainer from './components/Trainer/Trainer';
 import TrainerCard from './components/Trainer/TrainerCard';
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from './services/queryClient';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<App />} />
-          <Route path='register' element={<Register />} />
-          <Route path='login' element={<Login />} />
-          <Route path='begin' element={<Begin />} />
-          <Route path='homepage' element={<Homepage />} />
-          <Route path='training' element={<Trainer />} />
-
-        </Routes>
-      </BrowserRouter> 
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <App/>
+    </QueryClientProvider>
   </React.StrictMode>
 )

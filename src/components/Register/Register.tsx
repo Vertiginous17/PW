@@ -13,6 +13,9 @@ const USER_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\")
 // pwd regex requires at least one lower case letter, one upper case letter, one digit and one special character 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
+const NIF_REGEX = /[0-9]{9}$/; 
+const CAT_REGEX = /[0-9].{0,9}$/; 
+
 const Register = () => {
     const userRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const errRef = useRef<HTMLDivElement>(null);
@@ -32,6 +35,10 @@ const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [category, setCategory] = useState('')
+    const [validCategory, setValidCategory] = useState(false);
+    
+    const [nifFocus, setNifFocus] = useState('');
+    const [validNifFocus, setValidNifFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
@@ -56,10 +63,20 @@ const Register = () => {
         setValidMatch(match);
     }, [pwd, matchPwd])
 
-
+    
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd, matchPwd])
+
+    useEffect(() => {
+        const result = NIF_REGEX.test(nifFocus);
+        setValidNifFocus(result);
+    }, [nifFocus])
+
+    useEffect(() => {
+        const result = CAT_REGEX.test(category);
+        setValidCategory(result);
+    }, [category])
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -68,7 +85,13 @@ const Register = () => {
         try {
             const response = await axios.post(
                 REGISTER_URL,
-                JSON.stringify({ email: user, password: pwd, first_name:firstName, last_name:lastName, category }),
+                JSON.stringify(
+                    { 
+                        email: user, password: pwd, 
+                        first_name: firstName, last_name: lastName,
+                        category, nif: nifFocus
+                    }
+                ),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -86,7 +109,6 @@ const Register = () => {
             errRef.current.focus();
         }
     }
-
 
     return (
         <div className='App'>
@@ -169,10 +191,31 @@ const Register = () => {
                                     type="text"
                                     id="category"
                                     onChange={(e) => setCategory(e.target.value)}
+                                    aria-invalid={validCategory ? "false" : true}
                                     autoComplete="off"
                                     required
                                     value={category}
                                 /> 
+                                <p id='catnote' className={category && !validCategory ? "instructions" : "offscreen"}>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    Please provide the category number.<br />
+                                </p>
+
+                                <label htmlFor='nif'>
+                                    NIF
+                                </label>
+                                <input
+                                    type="number"
+                                    id="nif"
+                                    onChange={(e) => setNifFocus(e.target.value)}
+                                    aria-invalid={validNifFocus ? "false" : true}
+                                    autoComplete="off"
+                                    value={nifFocus}
+                                /> 
+                                <p id='catnote' className={nifFocus && !validNifFocus ? "instructions" : "offscreen"}>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    Please provide a valid NIF with 9 digits.<br />
+                                </p>
                                 
                                 <p id='uidnote' className={userFocus && user && !validName ? "instructions" : "offscreen"}>
                                     <FontAwesomeIcon icon={faInfoCircle} />

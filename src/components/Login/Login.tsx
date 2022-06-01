@@ -1,22 +1,15 @@
 import React from 'react';
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect, useContext, FC } from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext, { AuthProvider } from '../../context/AuthProvider';
 import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
 
-// url to comunicate with axios, which matches the backend
+// url to comunicate with axios,  which matches the backend
 const LOGIN_URL = '/auth';
 
-
 const Login = () => {
-    interface setAuth {
-        user: string;
-        pwd: string;
-        category: string;
-        accesToken: string;
-        [key:string]: string;
-    }
+    // const { data, isFetching } = useFetch<Log[]>(LOGIN_URL)
+
     const userRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const errRef = useRef<HTMLDivElement>(null);
 
@@ -39,29 +32,33 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        const params = new URLSearchParams();
+        params.append('username', user);
+        params.append('password', pwd);
+        // console.log(params);
+
         try {
-            const response = await axios.post(LOGIN_URL,
-                // if api is looking for "password", we do password: pwd
-                
-                JSON.stringify({ username: user, password: pwd }),
+            // console.log(user);
+            const response = await axios.post(
+                LOGIN_URL,
+                params,
                 {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': "*",
-                        'Access-Control-Allow-Methods': "DELETE, POST, GET, OPTIONS",
-                        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
-                        // ,'Authorization': `Bearer ${token}`
+                    headers: { 
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        "Access-Control-Allow-Origin": "*",
                     },
-                    withCredentials: true 
+                    withCredentials: true
                 }
-            );
-            console.log(JSON.stringify(response?.data));
-            const accesToken = response?.data?.accessToken;
-
-            const getSetAuth = (auth: setAuth): string => {
-                return auth.user, auth.pwd, auth.category, auth.accesToken
-            } 
-
+                ).then((response) => {
+                    if (response.data.acces_token){
+                        localStorage.setItem("user", JSON.stringify(response.data));
+                    }
+                    // console.log(JSON.stringify(response?.data));
+                    return response.data;
+                })
+                // if api is looking for "password", we do password: pwd
+            
             setUser('');
             setPwd('');
             setSuccess(true);
@@ -77,6 +74,7 @@ const Login = () => {
                 setErrMsg('Unauthorized');
             } else {
                 console.log(err);
+                console.log(err.response.status)
                 setErrMsg('Login failed');
             }
             // @ts-ignore: Object is possibly 'null'.
@@ -87,12 +85,13 @@ const Login = () => {
     return (
         <>
             {success ? (
-                <section>
+                    <div className='App'>
                     <h1>You are logged in</h1>
                     <p>
-                        <Link to='/homepage'>Go Home</Link>
+                        <Link to='/begin'>Go Home</Link>
                     </p>
-                </section>
+                    </div>
+                    
             ) : (
                 <div className='App'>
                     <section>
@@ -142,3 +141,4 @@ const Login = () => {
 }
 
 export default Login
+

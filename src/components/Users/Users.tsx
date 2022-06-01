@@ -22,7 +22,6 @@ const Users = () => {
                 console.log(err);
             }
         }
-
         getUsers();
 
         return () => {

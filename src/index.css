@@ -14,7 +14,7 @@ html {
 
 body {
     min-height: 100vh;
-    background-color: #5DBB63;
+    background-color: 			#FFDEAD;
     /* background-color: burlywood; */
 }
  
@@ -52,6 +52,7 @@ a, a:visited {
 
 input[type="text"],
 input[type="password"],
+input[type="number"],
 button,
 textarea {
   font-family: 'Nunito', sans-serif;

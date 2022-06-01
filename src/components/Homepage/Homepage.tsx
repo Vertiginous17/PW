@@ -6,6 +6,7 @@ import './Homepage.css'
 const Homepage = () => {
   return (
     <div className='App'>
+      <section>
       <div className='title'>
         <h1>SoftFit</h1>
         <img className='logoImg' src='http://cdn.onlinewebfonts.com/svg/img_546362.png' />
@@ -18,6 +19,8 @@ const Homepage = () => {
         </div>
       </nav>
       <Outlet />
+      </section>
+      
     </div>
   )
 }

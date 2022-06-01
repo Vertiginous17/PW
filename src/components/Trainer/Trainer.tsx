@@ -3,6 +3,18 @@ import TrainerCard from './TrainerCard'
 import "./Trainer.css"
 import Navbar from '../Navbar/Navbar'
 
+
+type Training = {
+    training_plan_category: number;
+    price: number;
+    description: string;
+    expiration_date: Date;
+    details: string;
+    number_of_sessions: number;
+    notes: string;
+    training_plan_id: number;
+}
+
 const Trainer = () => {
     return (
         <main>
